@@ -93,3 +93,5 @@ bin/
 pyvenv.cfg
 pip-selfcheck.json
 share/
+media
+!media/.gitkeep
