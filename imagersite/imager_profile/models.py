@@ -9,9 +9,22 @@ import uuid
 
 # Create your models here.
 
+@python_2_unicode_compatible
+class ImageProfileManager(models.Manager):
+
+    class Meta:
+        model = 'ImagerProfile'
+
+    def get_queryset(self):
+        qs = super(ImageProfileManager, self).get_queryset()
+        return qs.filter(user__is_active=True)
+
 
 @python_2_unicode_compatible
 class ImagerProfile(models.Model):
+
+    objects = models.Manager()
+
     user_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -21,6 +34,8 @@ class ImagerProfile(models.Model):
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
         return "{}".format(fn)
+
+    active = ImageProfileManager()
 
     @property
     def active(self):
@@ -33,7 +48,7 @@ class Address(models.Model):
         ImagerProfile,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='address')   
+        related_name='address')
     street_addr = models.CharField(_('Street Address'), max_length=128, blank=True)
     unit = models.CharField(_('Unit'), max_length=8, blank=True)
     city = models.CharField(_('City'), max_length=64, blank=True)
