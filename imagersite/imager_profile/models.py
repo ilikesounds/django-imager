@@ -1,8 +1,9 @@
-from __future__ import unicode_literals
 
+from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
 import uuid
+from django.utils.translation import ugettext as _
 
 # Create your models here.
 
@@ -18,6 +19,8 @@ class Imager_Profile(models.Model):
         fn = self.user.get_full_name().strip() or self.user.get_username()
         return "{}: {}".format(fn, self.card_number)
 
+    def active(self):
+        return self.user.is_active
 
 
 class Address(models.Model):
@@ -47,6 +50,7 @@ class Camera_Type(models.Model):
         on_delete=models.CASCADE,
         primary_key=True)
     camera_type = models.CharField(_('camera_type'), max_length=64)
+
 
 class Photography_Type(models.Model):
     imager_profile = models.ForeignKey(
