@@ -45,7 +45,7 @@ class ImagerProfile(models.Model):
 @python_2_unicode_compatible
 class Address(models.Model):
     imager_profile = models.ForeignKey(
-        ImagerProfile,
+        'ImagerProfile',
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='address')
@@ -59,7 +59,7 @@ class Address(models.Model):
 @python_2_unicode_compatible
 class Social(models.Model):
     imager_profile = models.ForeignKey(
-        ImagerProfile,
+        'ImagerProfile',
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='social')
@@ -70,7 +70,7 @@ class Social(models.Model):
 @python_2_unicode_compatible
 class CameraType(models.Model):
     imager_profile = models.ForeignKey(
-        ImagerProfile,
+        'ImagerProfile',
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='camera_type')
@@ -87,7 +87,7 @@ class PhotographyType(models.Model):
         ('Astronomy', 'Astronomy'),
     )
     imager_profile = models.ForeignKey(
-        ImagerProfile,
+        'ImagerProfile',
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='photography_type')
