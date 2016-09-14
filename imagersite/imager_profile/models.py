@@ -1,14 +1,17 @@
 
 from __future__ import unicode_literals
-from django.db import models
 from django.conf import settings
-import uuid
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
+
+import uuid
 
 # Create your models here.
 
 
-class Imager_Profile(models.Model):
+@python_2_unicode_compatible
+class ImagerProfile(models.Model):
     user_id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -17,44 +20,60 @@ class Imager_Profile(models.Model):
 
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
-        return "{}: {}".format(fn, self.card_number)
+        return "{}".format(fn)
 
+    @property
     def active(self):
         return self.user.is_active
 
 
+@python_2_unicode_compatible
 class Address(models.Model):
     imager_profile = models.ForeignKey(
-        Imager_Profile,
+        ImagerProfile,
         on_delete=models.CASCADE,
-        primary_key=True)
-    street_addr = models.CharField(_('street_addr'), max_length=128)
-    unit = models.CharField(_('unit'), max_length=8)
-    city = models.CharField(_('city'), max_length=64)
-    state = models.CharField(_('state'), max_length=4)
-    post_code = models.CharField(_('post_code'), max_length=5)
+        primary_key=True,
+        related_name='address')   
+    street_addr = models.CharField(_('Street Address'), max_length=128, blank=True)
+    unit = models.CharField(_('Unit'), max_length=8, blank=True)
+    city = models.CharField(_('City'), max_length=64, blank=True)
+    state = models.CharField(_('state'), max_length=4, blank=True)
+    post_code = models.CharField(_('Postal Code'), max_length=5, blank=True)
 
 
+@python_2_unicode_compatible
 class Social(models.Model):
     imager_profile = models.ForeignKey(
-        Imager_Profile,
+        ImagerProfile,
         on_delete=models.CASCADE,
-        primary_key=True)
-    social_type = models.CharField(_('social_type'), max_length=64)
-    social_url = models.CharField(_('social_url'), max_length=64)
+        primary_key=True,
+        related_name='social')
+    social_type = models.CharField(_('Social Medial Type'), max_length=64, blank=True)
+    social_url = models.CharField(_('Social Media URL'), max_length=64, blank=True)
 
 
-class Camera_Type(models.Model):
+@python_2_unicode_compatible
+class CameraType(models.Model):
     imager_profile = models.ForeignKey(
-        Imager_Profile,
+        ImagerProfile,
         on_delete=models.CASCADE,
-        primary_key=True)
-    camera_type = models.CharField(_('camera_type'), max_length=64)
+        primary_key=True,
+        related_name='camera_type')
+    camera_type = models.CharField(_('Camera Type'), max_length=64, blank=True)
 
 
-class Photography_Type(models.Model):
+@python_2_unicode_compatible
+class PhotographyType(models.Model):
+    PHOTOGRAPHY_CHOICES = (
+        ('Nature', 'Nature'),
+        ('Portrait', 'Portrait'),
+        ('Family', 'Family'),
+        ('Urban', 'Urban'),
+        ('Astronomy', 'Astronomy'),
+    )
     imager_profile = models.ForeignKey(
-        Imager_Profile,
+        ImagerProfile,
         on_delete=models.CASCADE,
-        primary_key=True)
-    photography_type = models.CharField(_('photography_type'), max_length=32)
+        primary_key=True,
+        related_name='photography_type')
+    photography_type = models.CharField(_('Photography Type'), max_length=32, choices=PHOTOGRAPHY_CHOICES)
