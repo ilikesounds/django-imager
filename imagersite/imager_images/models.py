@@ -53,14 +53,14 @@ class Album(models.Model):
     (PUBLIC, 'Public')
     )
 
-    DEFAULT_COVER = 'file path here for default cover'
+    DEFAULT_COVER = None
 
     album_id = models.UUIDField(
                primary_key=True,
                default=uuid.uuid4,
                editable=False)
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, default=DEFAULT_COVER, on_delete=models.CASCADE)
 
     date_created = models.DateTimeField(_('Date Created'))
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
