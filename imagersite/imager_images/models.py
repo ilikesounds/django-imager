@@ -35,12 +35,12 @@ class Photo(models.Model):
     date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
     published_status = models.BooleanField(_('Published Status'))
 
-    lat = models.DecimalField(_('Latitude'), max_digits=3, decimal_places=7)
-    lng = models.DecimalField(_('Longitude'), max_digits=3, decimal_places=7)
+    lat = models.DecimalField(_('Latitude'), max_digits=7, decimal_places=7)
+    lng = models.DecimalField(_('Longitude'), max_digits=7, decimal_places=7)
 
     camera = models.CharField(_('Camera'), max_length=48, blank=True)
     caption = models.TextField(_('Caption'), blank=True)
-    album = models.ManyToMany('Album')
+    albums = models.ManyToManyField('Album')
 
 
 @python_2_unicode_compatible
@@ -68,5 +68,5 @@ class Album(models.Model):
 
     album_title = models.CharField(_('Title'), max_length=64, blank=True)
     album_description = models.TextField(_('Description'), blank=True)
-    published_status = models.CharField(_(max_length=3, choices=PUBLISHED_CHOICES, default=PRIVATE))
-    cover_photo = models.ForeignKey('Photo', on_delete=models.SET_DEFAULT)
+    published_status = models.CharField(_('Published Status'),max_length=3, choices=PUBLISHED_CHOICES, default=PRIVATE)
+    cover_photo = models.ForeignKey('Photo', default=DEFAULT_COVER, on_delete=models.SET_DEFAULT)
