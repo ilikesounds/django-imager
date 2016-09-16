@@ -127,8 +127,7 @@ class PhotographyType(models.Model):
 @receiver(models.signals.post_save, sender=User)
 def create_profile(sender, **kwargs):
     try:
-        if kwargs.get('created', False):
-            ImagerProfile.objects.get_or_create(user=kwargs.get('instance'))
+        if kwargs.get('created', True):
             ImagerProfile(user=kwargs['instance'], is_active=True).save()
     except:
         raise ReferenceError('User not in database.')
