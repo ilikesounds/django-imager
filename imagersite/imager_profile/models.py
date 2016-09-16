@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.dispatch import receiver
@@ -93,9 +94,10 @@ class PhotographyType(models.Model):
         related_name='photography_type')
     photography_type = models.CharField(_('Photography Type'), max_length=32, choices=PHOTOGRAPHY_CHOICES)
 
+
 @receiver(models.signals.post_save, sender=User)
 def create_profile(sender, **kwargs):
-ImagerProfile(
-  user=kwargs['instance'],
-  is_active=True
-).save()
+    ImagerProfile(
+        user=kwargs['instance'],
+        is_active=True
+    ).save()
