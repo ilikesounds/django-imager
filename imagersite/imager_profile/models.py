@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 
 # Create your models here.
 
-@python_2_unicode_compatible
+
 class ImageProfileManager(models.Manager):
 
     class Meta:
@@ -55,6 +55,13 @@ class Address(models.Model):
     state = models.CharField(_('state'), max_length=4, blank=True)
     post_code = models.CharField(_('Postal Code'), max_length=5, blank=True)
 
+    def __str__(self):
+        """
+        This will display in string format the profile address object
+        """
+
+        adr = self.street_addr + self.unit + ", " + self.city + ', ' + self.state
+        return adr
 
 @python_2_unicode_compatible
 class Social(models.Model):
@@ -66,6 +73,13 @@ class Social(models.Model):
     social_type = models.CharField(_('Social Medial Type'), max_length=64, blank=True)
     social_url = models.CharField(_('Social Media URL'), max_length=64, blank=True)
 
+    def __str__(self):
+        """
+        This will display in string format the profile social object
+        """
+
+        social = self.social_type + ': ' + self.social_url
+        return social
 
 @python_2_unicode_compatible
 class CameraType(models.Model):
@@ -75,6 +89,14 @@ class CameraType(models.Model):
         primary_key=True,
         related_name='camera_type')
     camera_type = models.CharField(_('Camera Type'), max_length=64, blank=True)
+
+    def __str__(self):
+        """
+        This will display in string format the camera object
+        """
+
+        camera = self.camera_type
+        return camera
 
 
 @python_2_unicode_compatible
@@ -93,9 +115,14 @@ class PhotographyType(models.Model):
         related_name='photography_type')
     photography_type = models.CharField(_('Photography Type'), max_length=32, choices=PHOTOGRAPHY_CHOICES)
 
-@receiver(models.signals.post_save, sender=User)
+    def __str__(self):
+        """
+        This will display in string format the photography type object
+        """
+
+        photo_genre = self.photography_type
+        return photo_genre
+
+@receiver(models.signals.post_save, sender=ImagerProfile.user)
 def create_profile(sender, **kwargs):
-ImagerProfile(
-  user=kwargs['instance'],
-  is_active=True
-).save()
+    ImagerProfile(user=kwargs['instance'], is_active=True).save()

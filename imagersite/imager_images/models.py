@@ -19,7 +19,6 @@ class Photo(models.Model):
     )
 
     def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
         return 'user_{0}/{1}'.format(instance.user.id, filename)
 
     photo_id = models.UUIDField(
@@ -29,7 +28,7 @@ class Photo(models.Model):
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    upload = models.ImageField(upload_to='photo_files/%Y-%m-%d') # file will be uploaded to MEDIA_ROOT/uploads
+    upload = models.ImageField(upload_to='photo_files/%Y-%m-%d')
     date_created = models.DateTimeField(_('Date Created'))
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
     date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
@@ -41,6 +40,14 @@ class Photo(models.Model):
     camera = models.CharField(_('Camera'), max_length=48, blank=True)
     caption = models.TextField(_('Caption'), blank=True)
     albums = models.ManyToManyField('Album')
+
+    def __str__(self):
+        """
+        This will display in string format the photo object
+        """
+
+        photo = self.upload
+        return photo
 
 
 @python_2_unicode_compatible
@@ -70,3 +77,11 @@ class Album(models.Model):
     album_description = models.TextField(_('Description'), blank=True)
     published_status = models.CharField(_('Published Status'),max_length=3, choices=PUBLISHED_CHOICES, default=PRIVATE)
     cover_photo = models.ForeignKey('Photo', default=DEFAULT_COVER, on_delete=models.SET_DEFAULT)
+
+    def __str__(self):
+        """
+        This will display in string format the album object
+        """
+
+        album = self.album_title
+        return album
