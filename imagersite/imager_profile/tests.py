@@ -14,15 +14,15 @@ from django.utils.translation import ugettext as _
 # Create your tests here.
 
 
-# class ProfileTest(TestCase):
+class ProfileTest(TestCase):
 
-#     def create_profile(self, user="Fred"): 
-#         User.objects.create(user=user)
+    def create_profile(self, user="Fred"): 
+        User.objects.create(user=user)
 
 
-#     def test_imager_profile_creation(self):
-#         img_pro = self.create_profile()
-#         self.assertTrue(isinstance(img_pro, ImagerProfile))
+    def test_imager_profile_creation(self):
+        img_pro = self.create_profile()
+        self.assertTrue(isinstance(img_pro, ImagerProfile))
 
 
 
