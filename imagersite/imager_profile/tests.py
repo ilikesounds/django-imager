@@ -86,15 +86,17 @@ class ProfileTestCase(TestCase):
 class AddressTest(TestCase):
     def create_address(self, street_addr="123 Address", city="ThisCity", state="WA", post_code="12345"): 
         self.user = UserFactory.create(username="sally")
-        # import pdb; pdb.set_trace()
-        self.user.imagerprofile.address.create(street_addr=street_addr, city=city, state=state, post_code=post_code)
+        this_addr = self.user.imagerprofile.address.create(street_addr=street_addr, city=city, state=state, post_code=post_code)
+        self.user.imagerprofile.address.add(this_addr)
 
 
     def test_address_creation(self):
-        this_addr = self.create_address()
-        import pdb; pdb.set_trace()
+        self.create_address()
+        this_addr = Address.objects.filter(pk=self.user.pk)[0]
         self.assertTrue(isinstance(this_addr, Address))
 
 
-
-
+    def test_address_check_addr(self):
+        self.create_address()
+        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        self.assertEqual(this_addr.street_addr, "123 Address")
