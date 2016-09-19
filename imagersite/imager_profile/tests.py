@@ -100,3 +100,36 @@ class AddressTest(TestCase):
         self.create_address()
         this_addr = Address.objects.filter(pk=self.user.pk)[0]
         self.assertEqual(this_addr.street_addr, "123 Address")
+
+
+    def test_address_check_city(self):
+        self.create_address()
+        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        self.assertEqual(this_addr.city, "ThisCity")
+
+
+    def test_address_check_state(self):
+        self.create_address()
+        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        self.assertEqual(this_addr.state, "WA")
+
+
+    def test_address_check_postal(self):
+        self.create_address()
+        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        self.assertEqual(this_addr.post_code, "12345")
+
+
+class SocailTest(TestCase):
+    def create_social(self, social_type="twiter", social_url="@twiteruser"): 
+        self.user = UserFactory.create(username="sally")
+        this_social = self.user.imagerprofile.social.create(social_type=social_type, social_url=social_url)
+        self.user.imagerprofile.social.add(this_social)
+
+
+    def test_social_creation(self):
+        self.create_social()
+        this_social = Social.objects.filter(pk=self.user.pk)[0]
+        self.assertTrue(isinstance(this_social, Social))
+
+
