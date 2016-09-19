@@ -68,7 +68,6 @@ class Social(models.Model):
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='social')
     social_type = models.CharField(_('Social Medial Type'), max_length=64, blank=True)
     social_url = models.CharField(_('Social Media URL'), max_length=64, blank=True)
