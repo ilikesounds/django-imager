@@ -87,3 +87,11 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# User Added
+bin/
+pyvenv.cfg
+pip-selfcheck.json
+share/
+media
+!media/.gitkeep
