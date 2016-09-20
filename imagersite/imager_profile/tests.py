@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from .models import ImagerProfile, Address
+from .models import ImagerProfile, Address, Social, CameraType
 from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
@@ -82,54 +82,67 @@ class ProfileTestCase(TestCase):
         self.assertTrue(profile.active)
 
 
-
 class AddressTest(TestCase):
     def create_address(self, street_addr="123 Address", city="ThisCity", state="WA", post_code="12345"): 
         self.user = UserFactory.create(username="sally")
         this_addr = self.user.imagerprofile.address.create(street_addr=street_addr, city=city, state=state, post_code=post_code)
-        self.user.imagerprofile.address.add(this_addr)
+        # self.user.imagerprofile.address.add(this_addr)
 
 
     def test_address_creation(self):
         self.create_address()
-        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        # give me the address attached to the profile that belongs to the user with this pk value
+        this_addr = Address.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertTrue(isinstance(this_addr, Address))
 
 
     def test_address_check_addr(self):
         self.create_address()
-        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        this_addr = Address.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertEqual(this_addr.street_addr, "123 Address")
 
 
     def test_address_check_city(self):
         self.create_address()
-        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        this_addr = Address.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertEqual(this_addr.city, "ThisCity")
 
 
     def test_address_check_state(self):
         self.create_address()
-        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        this_addr = Address.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertEqual(this_addr.state, "WA")
 
 
     def test_address_check_postal(self):
         self.create_address()
-        this_addr = Address.objects.filter(pk=self.user.pk)[0]
+        this_addr = Address.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertEqual(this_addr.post_code, "12345")
 
 
-class SocailTest(TestCase):
+class SocialTest(TestCase):
     def create_social(self, social_type="twiter", social_url="@twiteruser"): 
-        self.user = UserFactory.create(username="sally")
+        self.user = UserFactory.create(username="rosie")
         this_social = self.user.imagerprofile.social.create(social_type=social_type, social_url=social_url)
         self.user.imagerprofile.social.add(this_social)
 
 
     def test_social_creation(self):
         self.create_social()
-        this_social = Social.objects.filter(pk=self.user.pk)[0]
+        this_social = Social.objects.filter(imager_profile__user__pk = self.user.pk)[0]
         self.assertTrue(isinstance(this_social, Social))
+
+
+class CameraTest(TestCase):
+    def create_camera(self, camera_type="canon"): 
+        self.user = UserFactory.create(username="elle")
+        this_camera = self.user.imagerprofile.camera_type.create(camera_type=camera_type)
+        self.user.imagerprofile.camera_type.add(this_camera)
+
+
+    def test_camera_creation(self):
+        self.create_camera()
+        this_camera = CameraType.objects.filter(imager_profile__user__pk = self.user.pk)[0]
+        self.assertTrue(isinstance(this_camera, CameraType))
 
 
