@@ -48,7 +48,6 @@ class Address(models.Model):
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='address')
     street_addr = models.CharField(_('Street Address'), max_length=128, blank=True)
     unit = models.CharField(_('Unit'), max_length=8, blank=True)
@@ -69,7 +68,6 @@ class Social(models.Model):
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='social')
     social_type = models.CharField(_('Social Medial Type'), max_length=64, blank=True)
     social_url = models.CharField(_('Social Media URL'), max_length=64, blank=True)
@@ -87,7 +85,6 @@ class CameraType(models.Model):
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='camera_type')
     camera_type = models.CharField(_('Camera Type'), max_length=64, blank=True)
 
@@ -112,7 +109,6 @@ class PhotographyType(models.Model):
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='photography_type')
     photography_type = models.CharField(_('Photography Type'), max_length=32, choices=PHOTOGRAPHY_CHOICES)
 
@@ -128,6 +124,6 @@ class PhotographyType(models.Model):
 def create_profile(sender, **kwargs):
     try:
         if kwargs.get('created', True):
-            ImagerProfile(user=kwargs['instance'], is_active=True).save()
-    except:
+            ImagerProfile(user=kwargs['instance']).save()
+    except ReferenceError:
         raise ReferenceError('User not in database.')
