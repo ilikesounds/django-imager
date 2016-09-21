@@ -10,6 +10,13 @@ from django.utils.translation import ugettext as _
 
 # Create your models here.
 
+PHOTOGRAPHY_CHOICES = (
+    ('Nature', 'Nature'),
+    ('Portrait', 'Portrait'),
+    ('Family', 'Family'),
+    ('Urban', 'Urban'),
+    ('Astronomy', 'Astronomy'),
+)
 
 class ImageProfileManager(models.Manager):
 
@@ -59,8 +66,10 @@ class Address(models.Model):
         """
         This will display in string format the profile address object
         """
-
-        adr = self.street_addr + self.unit + ", " + self.city + ', ' + self.state
+        adr = self.street_addr
+        if self.unit:
+            adr += " " + self.unit
+        adr += " " + self.city + ', ' + self.state + ' ' + self.post_code
         return adr
 
 @python_2_unicode_compatible
@@ -99,13 +108,7 @@ class CameraType(models.Model):
 
 @python_2_unicode_compatible
 class PhotographyType(models.Model):
-    PHOTOGRAPHY_CHOICES = (
-        ('Nature', 'Nature'),
-        ('Portrait', 'Portrait'),
-        ('Family', 'Family'),
-        ('Urban', 'Urban'),
-        ('Astronomy', 'Astronomy'),
-    )
+
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,

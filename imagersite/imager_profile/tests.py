@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.test import TestCase
-from .models import ImagerProfile, Address, Social, CameraType
+from .models import ImagerProfile, Address, Social, CameraType, PhotographyType
 from django.contrib.auth.models import User
 import factory
 
@@ -78,15 +78,15 @@ class AddressTest(TestCase):
             post_code=post_code
             )
 
+    def test_address_not_created(self):
+        self.user = UserFactory.create(username="sally")
+        address_query = Address.objects.all()
+        self.assertEqual(len(address_query), 0)
+
     def test_address_creation(self):
         self.create_address()
-        # give me the address attached to the profile that belongs to the user
-        # with this pk value
-        this_addr = Address.objects.filter(
-            imager_profile__user__pk=self.user.pk
-            )[0]
-
-        self.assertTrue(isinstance(this_addr, Address))
+        address_query = Address.objects.all()
+        self.assertEqual(len(address_query), 1)
 
     def test_address_check_addr(self):
         self.create_address()
@@ -117,6 +117,14 @@ class AddressTest(TestCase):
             )[0]
         self.assertEqual(this_addr.post_code, "12345")
 
+    def test_address_format(self):
+        self.create_address()
+        this_addr = Address.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        str_addr = "123 Address ThisCity, WA 12345"
+        self.assertEqual(str(this_addr), str_addr)
+
 
 class SocialTest(TestCase):
 
@@ -129,13 +137,38 @@ class SocialTest(TestCase):
 
         self.user.imagerprofile.social.add(this_social)
 
+    def test_social_not_created(self):
+        self.user = UserFactory.create(username="sally")
+        social_query = Social.objects.all()
+        self.assertEqual(len(social_query), 0)
+
+
     def test_social_creation(self):
+        self.create_social()
+        social_query = Social.objects.all()
+        self.assertEqual(len(social_query), 1)
+
+    def test_social_type(self):
         self.create_social()
         this_social = Social.objects.filter(
             imager_profile__user__pk=self.user.pk
             )[0]
+        self.assertEqual(this_social.social_type, "twiter")
 
-        self.assertTrue(isinstance(this_social, Social))
+    def test_social_url(self):
+        self.create_social()
+        this_social = Social.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        self.assertEqual(this_social.social_url, "@twiteruser")
+
+    def test_social_format(self):
+        self.create_social()
+        this_social = Social.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        str_social = "twiter: @twiteruser"
+        self.assertEqual(str(this_social), str_social)
 
 
 class CameraTest(TestCase):
@@ -148,10 +181,66 @@ class CameraTest(TestCase):
 
         self.user.imagerprofile.camera_type.add(this_camera)
 
+    def test_camera_not_created(self):
+        self.user = UserFactory.create(username="sally")
+        camera_query = CameraType.objects.all()
+        self.assertEqual(len(camera_query), 0)
+
+
     def test_camera_creation(self):
+        self.create_camera()
+        camera_query = CameraType.objects.all()
+        self.assertEqual(len(camera_query), 1)
+
+    def test_camera_type(self):
         self.create_camera()
         this_camera = CameraType.objects.filter(
             imager_profile__user__pk=self.user.pk
             )[0]
+        self.assertEqual(this_camera.camera_type, "canon")
 
-        self.assertTrue(isinstance(this_camera, CameraType))
+    def test_camera_format(self):
+        self.create_camera()
+        this_camera = CameraType.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        str_camera = "canon"
+        self.assertEqual(str(this_camera), str_camera)
+
+
+class PhotographyTest(TestCase):
+
+    def create_photography(self, photography_type="Astronomy"):
+        self.user = UserFactory.create(username="elle")
+        this_photo_type = self.user.imagerprofile.photography_type.create(
+            photography_type=photography_type
+            )
+
+        self.user.imagerprofile.photography_type.add(this_photo_type)
+
+
+    def test_photography_not_created(self):
+        self.user = UserFactory.create(username="sally")
+        photography_query = PhotographyType.objects.all()
+        self.assertEqual(len(photography_query), 0)
+
+
+    def test_photography_creation(self):
+        self.create_photography()
+        photography_query = PhotographyType.objects.all()
+        self.assertEqual(len(photography_query), 1)
+
+    def test_photography_type(self):
+        self.create_photography()
+        this_photography = PhotographyType.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        self.assertEqual(this_photography.photography_type, "Astronomy")
+
+    def test_photography_format(self):
+        self.create_photography()
+        this_photography = PhotographyType.objects.filter(
+            imager_profile__user__pk=self.user.pk
+            )[0]
+        str_photography = "Astronomy"
+        self.assertEqual(str(this_photography), str_photography)
