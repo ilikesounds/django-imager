@@ -211,11 +211,12 @@ class PhotographyTest(TestCase):
 
     def create_photography(self, photography_type="Astronomy"):
         self.user = UserFactory.create(username="elle")
-        this_photography = self.user.imagerprofile.photography_type.create(
+        this_photo_type = self.user.imagerprofile.photography_type.create(
             photography_type=photography_type
             )
 
-        self.user.imagerprofile.photography_type.add(this_photography)
+        self.user.imagerprofile.photography_type.add(this_photo_type)
+
 
     def test_photography_not_created(self):
         self.user = UserFactory.create(username="sally")
@@ -234,13 +235,6 @@ class PhotographyTest(TestCase):
             imager_profile__user__pk=self.user.pk
             )[0]
         self.assertEqual(this_photography.photography_type, "Astronomy")
-
-    def test_photography_not_in_choices(self):
-        self.create_photography(photography_type="Cute Cat Photos")
-        this_photography = PhotographyType.objects.filter(
-            imager_profile__user__pk=self.user.pk
-            )[0]
-        self.assertEqual(this_photography.photography_type, "Cute Cat Photos")
 
     def test_photography_format(self):
         self.create_photography()
