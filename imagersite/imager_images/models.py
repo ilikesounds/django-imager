@@ -7,16 +7,17 @@ import uuid
 
 # Create your models here.
 
+
 @python_2_unicode_compatible
 class Photo(models.Model):
 
     PRIVATE, SHARED, PUBLIC = 'Pri', 'Shr', 'Pub'
 
     PUBLISHED_CHOICES = (
-    (PRIVATE, 'Private'),
-    (SHARED, 'Shared'),
-    (PUBLIC, 'Public')
-    )
+        (PRIVATE, 'Private'),
+        (SHARED, 'Shared'),
+        (PUBLIC, 'Public')
+        )
 
     def user_directory_path(instance, filename):
         return 'user_{0}/{1}'.format(instance.user.id, filename)
@@ -26,16 +27,31 @@ class Photo(models.Model):
                default=uuid.uuid4,
                editable=False)
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+        )
 
     upload = models.ImageField(upload_to='photo_files/%Y-%m-%d')
-    date_created = models.DateTimeField(_('Date Created'))
+    date_created = models.DateTimeField(_('Date Created'), null=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
     date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
     published_status = models.BooleanField(_('Published Status'))
 
-    lat = models.DecimalField(_('Latitude'), max_digits=7, decimal_places=7)
-    lng = models.DecimalField(_('Longitude'), max_digits=7, decimal_places=7)
+    lat = models.DecimalField(
+        _('Latitude'),
+        max_digits=7,
+        decimal_places=7,
+        null=True,
+        blank=True
+        )
+    lng = models.DecimalField(
+        _('Longitude'),
+        max_digits=7,
+        decimal_places=7,
+        null=True,
+        blank=True
+        )
 
     camera = models.CharField(_('Camera'), max_length=48, blank=True)
     caption = models.TextField(_('Caption'), blank=True)
@@ -55,10 +71,10 @@ class Album(models.Model):
 
     PRIVATE, SHARED, PUBLIC = 'Pri', 'Shr', 'Pub'
     PUBLISHED_CHOICES = (
-    (PRIVATE, 'Private'),
-    (SHARED, 'Shared'),
-    (PUBLIC, 'Public')
-    )
+        (PRIVATE, 'Private'),
+        (SHARED, 'Shared'),
+        (PUBLIC, 'Public')
+        )
 
     DEFAULT_COVER = None
 
@@ -67,7 +83,10 @@ class Album(models.Model):
                default=uuid.uuid4,
                editable=False)
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, default=DEFAULT_COVER, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+        )
 
     date_created = models.DateTimeField(_('Date Created'))
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
@@ -75,8 +94,17 @@ class Album(models.Model):
 
     album_title = models.CharField(_('Title'), max_length=64, blank=True)
     album_description = models.TextField(_('Description'), blank=True)
-    published_status = models.CharField(_('Published Status'),max_length=3, choices=PUBLISHED_CHOICES, default=PRIVATE)
-    cover_photo = models.ForeignKey('Photo', default=DEFAULT_COVER, on_delete=models.SET_DEFAULT)
+    published_status = models.CharField(
+        _('Published Status'),
+        max_length=3,
+        choices=PUBLISHED_CHOICES,
+        default=PRIVATE
+        )
+    cover_photo = models.ForeignKey(
+        _('Photo'),
+        default=DEFAULT_COVER,
+        on_delete=models.SET_DEFAULT
+        )
 
     def __str__(self):
         """

@@ -8,6 +8,7 @@ import factory
 # Create your tests here.
 
 class UserFactory(factory.django.DjangoModelFactory):
+
     class Meta:
         model = User
 
