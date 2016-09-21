@@ -59,8 +59,10 @@ class Address(models.Model):
         """
         This will display in string format the profile address object
         """
-
-        adr = self.street_addr + self.unit + ", " + self.city + ', ' + self.state
+        adr = self.street_addr
+        if self.unit:
+            adr += " " + self.unit
+        adr += " " + self.city + ', ' + self.state + ' ' + self.post_code
         return adr
 
 @python_2_unicode_compatible
