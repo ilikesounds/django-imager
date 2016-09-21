@@ -20,8 +20,9 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    url(r'^$', ''),
     url(r'^admin/', admin.site.urls),
 
-    #url(r'^images/', include('imager_images.urls'))
-    url(r'^profile/', include('imager_profile.urls'))
+    url(r'^images/', include('imager_images.urls')),
+    url(r'^profile/', include('imager_profile.urls')),
 ]
