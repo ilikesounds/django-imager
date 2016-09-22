@@ -1,6 +1,41 @@
 {% extends 'imagersite/index.html' %}
 
-{% block body %}
+{% block splash %}
+<style>html,
+body,
+header,
+.view {
+    height: 100%;
+}
+/* Navigation*/
+
+.navbar {
+    background-color: transparent;
+}
+
+.top-nav-collapse {
+    background-color: #2E2E2E;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #2E2E2E;
+    }
+}
+
+.full-bg-img {
+    color: #fff;
+}
+
+.view {
+    background: url("http://mdbootstrap.com/images/regular/people/img%20(63).jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+</style>
+<script>new WOW().init();</script>
 <div class="view hm-black-strong">
     <div class="full-bg-img flex-center">
         <ul>
@@ -17,4 +52,3 @@
     </div>
 </div>
 {% endblock %}
-
