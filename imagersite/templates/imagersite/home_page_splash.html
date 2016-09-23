@@ -1,40 +1,48 @@
-{% extends 'imagersite/index.html' %}
+{% extends 'imagersite/base.html' %}
+
+{% load static %}
+
+{% block component_css %}
+<link rel="stylesheet" href="{% static 'css/splash_page.css' %}">
+{% endblock %}
+
+{% block nav %}
+  <nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx"><i class="fa fa-bars"></i></button>
+      <div class="container">
+          <div class="collapse navbar-toggleable-xs" id="collapseEx">
+              <a class="navbar-brand" href="/" target="_blank">PictureCrap</a>
+              <ul class="nav navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#best-features">Features</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#examples-of-use">Examples</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#testimonials">Testimonials</a>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav nav-flex-icons">
+                  <li class="nav-item">
+                      <a class="nav-link"><i class="fa fa-facebook"></i></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"><i class="fa fa-twitter"></i></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link"><i class="fa fa-instagram"></i></a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+{% endblock %}
 
 {% block splash %}
-<style>html,
-body,
-header,
-.view {
-    height: 100%;
-}
-/* Navigation*/
-
-.navbar {
-    background-color: transparent;
-}
-
-.top-nav-collapse {
-    background-color: #2E2E2E;
-}
-
-@media only screen and (max-width: 768px) {
-    .navbar {
-        background-color: #2E2E2E;
-    }
-}
-
-.full-bg-img {
-    color: #fff;
-}
-
-.view {
-    background: url("http://mdbootstrap.com/images/regular/people/img%20(63).jpg")no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-</style>
 <script>new WOW().init();</script>
 <div class="view hm-black-strong">
     <div class="full-bg-img flex-center">
@@ -45,8 +53,8 @@ header,
                 <p class="wow fadeInUp" data-wow-delay="0.2s">It comes with a lot of new features, easy to follow videos and images. Check it out now!</p>
             </li>
             <li class="wow fadeInUp" data-wow-delay="0.4s">
-                <a class="btn btn-white-outline btn-lg"><i class="fa fa-user left"></i> Sign up!</a>
-                <a class="btn btn-white-outline btn-lg"><i class="fa fa-book left"></i>Learn more</a>
+                <a class="btn btn-white-outline btn-lg" href= "{}"><i class="fa fa-user left"></i> Sign up!</a>
+                <a class="btn btn-white-outline btn-lg"><i class="fa fa-sign-in left"></i>Login</a>
             </li>
         </ul>
     </div>
