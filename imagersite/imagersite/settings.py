@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile.apps.ImagerProfileConfig',
-    'imager_images.apps.ImagerImagesConfig'
+    'imager_images.apps.ImagerImagesConfig',
+    'registration'
 ]
 
 MIDDLEWARE = [
@@ -120,12 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'imagersite', 'static')
-
-]
-
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'imagersite', 'static')]
 
 # Media file handling
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# HMAC settings
+
+ACCOUNT_ACTIVATION_DAYS = 1
