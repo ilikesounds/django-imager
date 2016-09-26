@@ -62,7 +62,7 @@ class Photo(models.Model):
         This will display in string format the photo object
         """
 
-        photo = self.upload
+        photo = str(self.upload)
         return photo
 
 
