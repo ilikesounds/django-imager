@@ -4,6 +4,8 @@ from django.template import loader
 
 
 def index(request):
-    template = loader.get_template('imagersite/home_page_splash.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'imagersite/home_page_splash.html')
+
+
+def logout_view(request):
+    pass
