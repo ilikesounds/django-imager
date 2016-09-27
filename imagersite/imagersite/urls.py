@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 from .views import index
 
 urlpatterns = [
-    url(r'^$', index, ),
+    url(r'^$', index, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     #name= register will not work. 

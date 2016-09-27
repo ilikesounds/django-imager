@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.test import TestCase
-from .models import Photo, Album
+from ..models import Photo, Album
 from django.contrib.auth.models import User
 import factory
 
