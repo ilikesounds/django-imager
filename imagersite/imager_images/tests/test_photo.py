@@ -12,6 +12,8 @@ import datetime
 class PhotoTestCase(TestCase):
     '''This is the test case for the Photo Model'''
 
+    import pdb; pdb.set_trace()
+
     def setUp(self):
         pass
 
@@ -22,7 +24,7 @@ class PhotoTestCase(TestCase):
     def test_upload_photo(self):
         new_photo = PhotoFactory()
         photo_dir = 'photo_files'
-        user = self.user
+        user = UserFactory.build()
         today = datetime.datetime.today().strftime('%Y-%m-%d')
         expected_photo = '/'.join([photo_dir, user, today, 'squirrel.jpg'])
         self.assertEqual(new_photo.upload, expected_photo)

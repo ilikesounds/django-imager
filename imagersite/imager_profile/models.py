@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.dispatch import receiver
-from django.db.models.signals import post_save
 import uuid
 from django.utils.translation import ugettext as _
 
@@ -17,6 +16,7 @@ PHOTOGRAPHY_CHOICES = (
     ('Urban', 'Urban'),
     ('Astronomy', 'Astronomy'),
 )
+
 
 class ImageProfileManager(models.Manager):
 
@@ -37,7 +37,11 @@ class ImagerProfile(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile')
 
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
@@ -52,11 +56,17 @@ class ImagerProfile(models.Model):
 
 @python_2_unicode_compatible
 class Address(models.Model):
+
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
         related_name='address')
-    street_addr = models.CharField(_('Street Address'), max_length=128, blank=True)
+
+    street_addr = models.CharField(
+        _('Street Address'),
+        max_length=128,
+        blank=True
+        )
     unit = models.CharField(_('Unit'), max_length=8, blank=True)
     city = models.CharField(_('City'), max_length=64, blank=True)
     state = models.CharField(_('state'), max_length=4, blank=True)
@@ -72,14 +82,27 @@ class Address(models.Model):
         adr += " " + self.city + ', ' + self.state + ' ' + self.post_code
         return adr
 
+
 @python_2_unicode_compatible
 class Social(models.Model):
+
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
-        related_name='social')
-    social_type = models.CharField(_('Social Medial Type'), max_length=64, blank=True)
-    social_url = models.CharField(_('Social Media URL'), max_length=64, blank=True)
+        related_name='social'
+        )
+
+    social_type = models.CharField(
+        _('Social Medial Type'),
+        max_length=64,
+        blank=True
+        )
+
+    social_url = models.CharField(
+        _('Social Media URL'),
+        max_length=64,
+        blank=True
+        )
 
     def __str__(self):
         """
@@ -89,12 +112,15 @@ class Social(models.Model):
         social = self.social_type + ': ' + self.social_url
         return social
 
+
 @python_2_unicode_compatible
 class CameraType(models.Model):
+
     imager_profile = models.ForeignKey(
         'ImagerProfile',
         on_delete=models.CASCADE,
         related_name='camera_type')
+
     camera_type = models.CharField(_('Camera Type'), max_length=64, blank=True)
 
     def __str__(self):
@@ -113,7 +139,12 @@ class PhotographyType(models.Model):
         'ImagerProfile',
         on_delete=models.CASCADE,
         related_name='photography_type')
-    photography_type = models.CharField(_('Photography Type'), max_length=32, choices=PHOTOGRAPHY_CHOICES)
+
+    photography_type = models.CharField(
+        _('Photography Type'),
+        max_length=32,
+        choices=PHOTOGRAPHY_CHOICES
+        )
 
     def __str__(self):
         """
@@ -122,6 +153,7 @@ class PhotographyType(models.Model):
 
         photo_genre = self.photography_type
         return photo_genre
+
 
 @receiver(models.signals.post_save, sender=User)
 def create_profile(sender, **kwargs):
