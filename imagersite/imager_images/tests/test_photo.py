@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.test import TestCase, override_settings
 from imager_images.models import Photo, Album
 from imager_images.tests.factories import PhotoFactory, UserFactory
-from django.contrib.auth.models import User
 import tempfile
 import datetime
 

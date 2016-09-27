@@ -10,11 +10,15 @@ import datetime
 
 
 def user_directory_path(instance, filename):
+    """ This function will return a dynamically generated file path based on
+    the user id and the current date for an uploaded photo"""
+
     return '{}/{}/{}'.format(
         instance.user.id,
         datetime.datetime.today().strftime('%Y-%m-%d'),
         filename,
         )
+
 
 @python_2_unicode_compatible
 class Photo(models.Model):
@@ -26,7 +30,6 @@ class Photo(models.Model):
         (SHARED, 'Shared'),
         (PUBLIC, 'Public')
         )
-
 
     photo_id = models.UUIDField(
                primary_key=True,
