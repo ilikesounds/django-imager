@@ -4,9 +4,17 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 import uuid
+import datetime
 
 # Create your models here.
 
+
+def user_directory_path(instance, filename):
+    return '{}/{}/{}'.format(
+        instance.user.id,
+        datetime.datetime.today().strftime('%Y-%m-%d'),
+        filename,
+        )
 
 @python_2_unicode_compatible
 class Photo(models.Model):
@@ -19,8 +27,6 @@ class Photo(models.Model):
         (PUBLIC, 'Public')
         )
 
-    def user_directory_path(instance, filename):
-        return 'user_{0}/{1}'.format(instance.user.id, filename)
 
     photo_id = models.UUIDField(
                primary_key=True,
@@ -32,7 +38,9 @@ class Photo(models.Model):
         on_delete=models.CASCADE
         )
 
-    upload = models.ImageField(upload_to='photo_files/%Y-%m-%d')
+    upload = models.ImageField(
+        upload_to=user_directory_path
+        )
     date_created = models.DateTimeField(_('Date Created'), null=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
     date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
@@ -111,5 +119,5 @@ class Album(models.Model):
         This will display in string format the album object
         """
 
-        album = self.album_title
+        album = str(self.album_title)
         return album
