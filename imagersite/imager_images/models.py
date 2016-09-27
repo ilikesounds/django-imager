@@ -39,7 +39,7 @@ class Photo(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='albums'
+        related_name='photo'
         )
 
     upload = models.ImageField(
@@ -97,7 +97,8 @@ class Album(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='album'
         )
 
     date_created = models.DateTimeField(_('Date Created'))
