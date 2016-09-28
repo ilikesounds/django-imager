@@ -27,3 +27,4 @@ def index(request):
     #     photo = Photo.objects.filter(query).order_by('?').first()
 
     return render(request, 'imagersite/home_page_splash.html')
+
