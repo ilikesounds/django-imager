@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 
 def profile_view(request):
-    return HttpResponse('Fuck You! I\'m a web page!')
+    return render(request, 'profile.html')

@@ -129,3 +129,7 @@ MEDIA_URL = '/media/'
 # HMAC settings
 
 ACCOUNT_ACTIVATION_DAYS = 1
+
+# Email Backend
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

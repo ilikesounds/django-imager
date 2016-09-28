@@ -5,3 +5,9 @@ from django.http import HttpResponse
 
 def image_view(request):
     return HttpResponse('Fuck You! I\'m a web page!')
+
+def album_view(request):
+    return HttpResponse('Fuck You! I\'m a web page!')
+
+def library_view(request):
+    return HttpResponse('Fuck You! I\'m a web page!')
