@@ -133,3 +133,11 @@ ACCOUNT_ACTIVATION_DAYS = 1
 # Email Backend
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Login redirect
+
+LOGIN_REDIRECT_URL = '/profile/'
+
+# Logout redirect
+
+LOGOUT_REDIRECT_URL = '/'

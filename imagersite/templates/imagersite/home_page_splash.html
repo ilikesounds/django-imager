@@ -25,20 +25,12 @@
                   <li class="nav-item">
                       <a class="nav-link" href="#testimonials">Testimonials</a>
                   </li>
+                  {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="">Welcome {{ user.username }} </a>
+                  </li>
+                  {% endif %}
               </ul>
-              {% if user.is_authenticated %}
-                <ul class="nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="user_profile">Welcome {{ user.username }} </a>
-                    </li>
-                </ul>
-              {% else %}
-                 <ul class="nav navbar-nav">>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/accounts/register/">Register</a>
-                    </li>
-                </ul>
-              {% endif %}
           </div>
       </div>
   </nav>

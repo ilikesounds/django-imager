@@ -18,15 +18,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
-from .views import index
+from .views import index, NewRegView, NewLoginView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', index, name='home'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
+    url(r'^accounts/login/$', NewLoginView.as_view()),
+    url(r'^accounts/register/$', NewRegView.as_view(), name='register'),
     url(r'^images/', include('imager_images.urls')),
     url(r'^profile/', include('imager_profile.urls')),
-    # url(r'^login/$', auth_views.login, name='login'),
-    # url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
 ]
