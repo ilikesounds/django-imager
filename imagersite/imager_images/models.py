@@ -67,7 +67,7 @@ class Photo(models.Model):
 
     camera = models.CharField(_('Camera'), max_length=48, blank=True)
     caption = models.TextField(_('Caption'), blank=True)
-    albums = models.ManyToManyField('Album')
+    albums = models.ManyToManyField('Album', blank=True)
 
     def __str__(self):
         """
@@ -116,7 +116,8 @@ class Album(models.Model):
     cover_photo = models.ForeignKey(
         _('Photo'),
         default=DEFAULT_COVER,
-        on_delete=models.SET_DEFAULT
+        on_delete=models.SET_DEFAULT, 
+        blank=True
         )
 
     def __str__(self):
