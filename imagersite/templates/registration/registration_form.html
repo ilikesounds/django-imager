@@ -45,9 +45,9 @@
 {% block body %}
 <div class="card">
     <div class="card-block">
-      <form method='post' action='{% url 'register' %}'>
+      <form method='post' action='.'>
         {% csrf_token %}
-        <div class="form-header blue-gradient">
+<!--         <div class="form-header blue-gradient">
             <h3><i class="fa fa-user"></i> Register:</h3>
         </div>
         <div class="md-form">
@@ -66,9 +66,16 @@
             <label for="form4">Your password</label>
         </div>
         <div class="text-xs-center">
-            <button class="btn btn-indigo"><input type="submit" style="display:none;">Sign up</input></button>
-            </fieldset>
-        </div>
+ --> 
+            <!-- <button class="btn btn-indigo"> -->
+            <table>
+              {{form.as_table}}
+            </table>
+            <input type="submit" style="display:none;" value='sign_up'>
+            <!-- Sign up</input> -->
+            <!-- </button> -->
+            <!-- </fieldset> -->
+        <!-- </div> -->
       </form>
     </div>
 </div>
