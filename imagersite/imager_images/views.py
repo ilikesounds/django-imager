@@ -17,7 +17,8 @@ def library_view(request):
 def image_view(request, uuid=None):
     my_photo = Photo.objects.get(photo_id=uuid)
     context = Context({
+        "photo": my_photo,
         "file_name": my_photo.upload,
-        "file": os.path.join(MEDIA_URL, str(my_photo.upload))
+        "file": my_photo.upload
     })
     return render(request, 'photo.html', context)
