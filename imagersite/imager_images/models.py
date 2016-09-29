@@ -5,6 +5,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _
 import uuid
 import datetime
+from django.conf import settings
 
 # Create your models here.
 
@@ -43,7 +44,8 @@ class Photo(models.Model):
         )
 
     upload = models.ImageField(
-        upload_to=user_directory_path
+        # upload_to=user_directory_path
+        upload_to='photos'
         )
     date_created = models.DateTimeField(_('Date Created'), null=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)

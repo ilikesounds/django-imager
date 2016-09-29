@@ -18,7 +18,8 @@ def image_view(request, uuid=None):
     import pdb; pdb.set_trace()
     my_photo = Photo.objects.filter(photo_id=uuid)
     context = Context({
-        "file_name": my_photo[0].upload,
-        "file": os.path.join(MEDIA_ROOT, str(my_photo[0].upload))
+        "photo": my_photo,
+        "file_name": my_photo.upload,
+        "file": my_photo.upload
     })
     return render(request, 'photo.html', context)
