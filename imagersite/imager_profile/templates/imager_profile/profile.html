@@ -1,6 +1,10 @@
 {% extends 'imagersite/base.html' %}
 
-{% block title %}Login{% endblock %}
+{% load static %}
+
+{% block component_css %}
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
+{% endblock %}
 
 {% block nav %}
 <div class="container">
@@ -10,7 +14,7 @@
       <div class="collapse navbar-toggleable-xs" id="collapseEx22">
         <ul class="nav navbar-nav pull-right">
           <li class="nav-item active">
-            <a class="nav-link waves-effect waves-light" href="#"><i class="fa fa-envelope"></i>About Us</a>
+            <a class="nav-link waves-effect waves-light" href="#"><i class="fa fa-group"></i>About Us</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle waves-effect waves-dark" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
@@ -30,11 +34,22 @@
 
 {% block body %}
 <div class="container">
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-unique">Login</button>
-  </form>
+  <section class="m-b-4">
+    <div class="author-box">
+      <div class="row">
+        <h3 class="h3-responsive text-xs-center">User Profile</h3>
+        <hr>
+        <div class="col-xs-12 col-sm-2">
+          <img src="http://2.gravatar.com/avatar/e9de252843e9ff541060127dac7126ed?s=150&d=mm&r=g" class="img-fluid img-circle z-depth-2">
+        </div>
+        <div class=" col-xs-12 col-sm-10">
+          <p><strong>User Name: </strong>{{ full_name }}</p>
+          <p><strong>Albums: </strong>{{ album_count }}</p>
+          <p><strong>Photos: </strong>{{  photo_count }}</p>
+          <p><strong class="hidden-md-down">Bio: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae praesentium beatae quas libero, ess facere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 {% endblock %}
