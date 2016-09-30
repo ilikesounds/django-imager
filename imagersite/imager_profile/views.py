@@ -19,4 +19,6 @@ class ProfileView(TemplateView):
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['profile'] = self.request.user
         context['full_name'] = self.request.user.get_full_name()
+        context['photo_count'] = self.request.user.photo.count()
+        context['album_count'] = self.request.user.album.count()
         return context
