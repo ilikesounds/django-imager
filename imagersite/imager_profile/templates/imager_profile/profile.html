@@ -3,11 +3,11 @@
 {% load static %}
 
 {% block component_css %}
-<link rel="stylesheet" href="{% static 'css/splash_page.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
 {% endblock %}
 
 {% block nav %}
-  <nav class="navbar navbar-dark navbar-fixed-top">
+  <nav class="navbar navbar-dark">
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx"><i class="fa fa-bars"></i></button>
       <div class="container">
           <div class="collapse navbar-toggleable-xs" id="collapseEx">
@@ -45,5 +45,21 @@
 {% endblock %}
 
 {% block body %}
-  This is a user profile.
+<section class="m-b-4">
+    <div class="author-box">
+        <div class="row">
+            <h3 class="h3-responsive text-xs-center">User Profile</h3>
+            <hr>
+            <div class="col-xs-12 col-sm-2">
+                <img src="http://2.gravatar.com/avatar/e9de252843e9ff541060127dac7126ed?s=150&d=mm&r=g" class="img-fluid img-circle z-depth-2">
+            </div>
+            <div class=" col-xs-12 col-sm-10">
+                <p><strong>User Name: {{ profile.first_name }}</strong></p>
+                <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae praesentium beatae quas libero, esse
+                    facere.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
