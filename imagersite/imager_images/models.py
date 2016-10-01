@@ -44,8 +44,8 @@ class Photo(models.Model):
         )
 
     upload = models.ImageField(
-        # upload_to=user_directory_path
-        upload_to='photos'
+        upload_to=user_directory_path
+        # upload_to='photos'
         )
     date_created = models.DateTimeField(_('Date Created'), null=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
