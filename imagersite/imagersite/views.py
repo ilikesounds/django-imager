@@ -18,13 +18,8 @@ class NewRegView(RegistrationView):
     def post(self, request):
         return views.login(request)
 
-class NewLoginView(TemplateView):
-    pass
-
-
 def index(request):
     # if request.user.is_authenticated:
     #     photo = Photo.objects.filter(query).order_by('?').first()
 
     return render(request, 'imagersite/home_page_splash.html')
-
