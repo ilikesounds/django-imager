@@ -143,3 +143,12 @@ LOGIN_REDIRECT_URL = '/profile/'
 # Logout redirect
 
 LOGOUT_REDIRECT_URL = '/'
+
+TEMPLATE_DEBUG = True
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}

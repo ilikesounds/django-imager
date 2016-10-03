@@ -3,8 +3,14 @@
 <h1>{{ album.album_title }}</h1>
 Date Created: {{ album.date_created }}<br>
 Published Status: {{ album.publish_status }}<br>
-Number of Pictures: {{ numb_of_pics }}<br>
+Number of Pictures: {{ album.photos.count }}<br>
 
-{% thumbnail item.image "200x100" as im %}
-    <img src="{{ im.url }}">
+{% for photo in album.photos.all %}
+{% thumbnail photo.upload "200" as file %}
+    <p>
+    <img src="{{ photo.upload.url }}" height="200">
+    </p>
+
 {% endthumbnail %}
+
+ {% endfor %}

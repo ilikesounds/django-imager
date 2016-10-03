@@ -9,18 +9,19 @@ from imagersite.settings import BASE_DIR, MEDIA_ROOT
 # Create your views here.
 
 
-def album_view(request, uuid=None):
-    my_album = Album.objects.get(album_id=uuid)
-    query_photos = Photo.objects.all()
-    # TODO: querry photos on album.
-    numb_of_pics = len(query_photos)
-    one_photo = query_photos.first()
-    context = Context({
-        "album": my_album,
-        "numb_of_pics": numb_of_pics,
-        "image": one_photo,
-    })
-    return render(request, 'imager_images/album.html', context)
+# def album_view(request, uuid=None):
+#     my_album = Album.objects.get(album_id=uuid)
+#     query_photos = Photo.objects.all()
+#     # TODO: querry photos on album.
+#     numb_of_pics = len(query_photos)
+#     one_photo = query_photos.first()
+#     import pdb; pdb.set_trace()
+#     context = Context({
+#         "album": my_album,
+#         "numb_of_pics": numb_of_pics,
+#         "im": one_photo,
+#     })
+#     return render(request, 'imager_images/album.html', context)
 
 def library_view(request):
     return HttpResponse('Fuck You! I\'m a web page!')

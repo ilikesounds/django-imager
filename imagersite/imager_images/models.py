@@ -74,7 +74,7 @@ class Photo(models.Model):
 
     camera = models.CharField(_('Camera'), max_length=48, blank=True)
     caption = models.TextField(_('Caption'), blank=True)
-    albums = models.ManyToManyField('Album', blank=True)
+    albums = models.ManyToManyField('Album', blank=True, related_name="photos")
 
     def __str__(self):
         """
