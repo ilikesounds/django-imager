@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context
-from django.views.generic import CreateView,
-from .models import Photo
+from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic.edit import CreateView
+from .models import Photo, Album
+from django.urls import reverse
 # Create your views here.
 
 
@@ -24,6 +26,18 @@ def image_view(request, uuid=None):
     return render(request, 'photo.html', context)
 
 
+class PhotoView(DetailView):
+    pass
+
+
+class AlbumView(DetailView):
+    pass
+
+
+class AlbumDetailView(DetailView):
+    pass
+
+
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/create_photo.html'
     model = Photo
@@ -33,6 +47,9 @@ class UploadPhotoView(CreateView):
         'published_status',
         'camera',
         'caption',
-        'album'
+        'albums'
         ]
-    success_url = '/'
+
+    def get_success_url(self):
+        url = self.object.upload.url
+        return url
