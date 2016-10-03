@@ -50,7 +50,12 @@ class Photo(models.Model):
     date_created = models.DateTimeField(_('Date Created'), null=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
     date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
-    published_status = models.BooleanField(_('Published Status'))
+    published_status = models.CharField(
+        _('Published Status'),
+        max_length=3,
+        choices=PUBLISHED_CHOICES,
+        default=PRIVATE
+        )
 
     lat = models.DecimalField(
         _('Latitude'),
@@ -119,7 +124,7 @@ class Album(models.Model):
         _('Photo'),
         default=DEFAULT_COVER,
         on_delete=models.SET_DEFAULT, 
-        blank=True
+        null=True
         )
 
     def __str__(self):

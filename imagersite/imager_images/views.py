@@ -3,13 +3,24 @@ import os
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context
-from .models import Photo
+from django.views.generic import TemplateView
+from .models import Album, Photo
 from imagersite.settings import BASE_DIR, MEDIA_ROOT
 # Create your views here.
 
 
-def album_view(request):
-    return HttpResponse('Fuck You! I\'m a web page!')
+def album_view(request, uuid=None):
+    my_album = Album.objects.get(album_id=uuid)
+    query_photos = Photo.objects.all()
+    # TODO: querry photos on album.
+    numb_of_pics = len(query_photos)
+    one_photo = query_photos.first()
+    context = Context({
+        "album": my_album,
+        "numb_of_pics": numb_of_pics,
+        "image": one_photo,
+    })
+    return render(request, 'imager_images/album.html', context)
 
 def library_view(request):
     return HttpResponse('Fuck You! I\'m a web page!')
@@ -22,4 +33,5 @@ def image_view(request, uuid=None):
         "file_name": my_photo.upload,
         "file": my_photo.upload
     })
-    return render(request, 'photo.html', context)
+    return render(request, 'imager_images/photo.html', context)
+
