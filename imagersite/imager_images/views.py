@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import Context
+from django.views.generic import CreateView,
 from .models import Photo
 # Create your views here.
 
@@ -23,7 +24,15 @@ def image_view(request, uuid=None):
     return render(request, 'photo.html', context)
 
 
-def photo_edit_view(request, uuid=None):
-    import pdb; pdb.set_trace()
-    photo = request.user.photo.get(photo_id=uuid)
-    return render(request, 'photo_edit.html')
+class UploadPhotoView(CreateView):
+    template_name = 'imager_images/create_photo.html'
+    model = Photo
+    fields = [
+        'upload',
+        'user',
+        'published_status',
+        'camera',
+        'caption',
+        'album'
+        ]
+    success_url = '/'
