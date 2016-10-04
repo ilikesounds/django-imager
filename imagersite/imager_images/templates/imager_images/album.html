@@ -6,11 +6,7 @@ Published Status: {{ album.publish_status }}<br>
 Number of Pictures: {{ album.photos.count }}<br>
 
 {% for photo in album.photos.all %}
-{% thumbnail photo.upload "200" as file %}
-    <p>
-    <img src="{{ photo.upload.url }}" height="200">
-    </p>
-
-{% endthumbnail %}
-
+    
+    <a href="{{ photo.upload.url }}"><img src="{{ photo.upload.url }}" height="150"></a>
+    
  {% endfor %}
