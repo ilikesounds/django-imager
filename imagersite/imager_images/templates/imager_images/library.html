@@ -1,0 +1,43 @@
+{% extends 'imagersite/base.html' %}
+
+{% block photo %}
+<div class="row">
+    <div class="col-md-12">
+        <div id="mdb-lightbox-ui"></div>
+        <div class="mdb-lightbox">
+          {% if photo %}
+            {% for i in photo %}
+              <figure class="col-md-4">
+                  <a href="http://mdbootstrap.com/images/regular/nature/img%20(41).jpg" data-size="1600x1067">
+                      <img src="http://mdbootstrap.com/images/docs/lightbox-thumbs/img%20(41).jpg" class="img-fluid">
+                  </a>
+              </figure>
+            {% endfor %}
+          {% else %}
+            <h1>No photos to display</h1>
+          {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block album %}
+<div class="row">
+    <div class="col-md-12">
+        <div id="mdb-lightbox-ui"></div>
+        <div class="mdb-lightbox">
+          {% if album %}
+            {% for i in album %}
+              <figure class="col-md-4">
+                  <a href="http://mdbootstrap.com/images/regular/nature/img%20(41).jpg" data-size="1600x1067">
+                      <img src="http://mdbootstrap.com/images/docs/lightbox-thumbs/img%20(41).jpg" class="img-fluid">
+                  </a>
+              </figure>
+            {% endfor %}
+          {% else %}
+            <h1>No photos to display</h1>
+          {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
