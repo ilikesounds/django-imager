@@ -22,7 +22,6 @@ html, body, header, .view {
 }
 
 .view {
-    background: url("http://mdbootstrap.com/images/regular/people/img%20(63).jpg")no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

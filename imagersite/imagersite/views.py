@@ -19,7 +19,8 @@ class NewRegView(RegistrationView):
         return views.login(request)
 
 def index(request):
-    # if request.user.is_authenticated:
-    #     photo = Photo.objects.filter(query).order_by('?').first()
+    published_photo_querry = Photo.objects.all()
+    photo = published_photo_querry.order_by('?').first()
+    content = {'picture': photo}
 
-    return render(request, 'imagersite/home_page_splash.html')
+    return render(request, 'imagersite/home_page_splash.html', content)
