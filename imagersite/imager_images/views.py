@@ -24,7 +24,8 @@ def image_view(request, uuid=None):
 
 
 class PhotoView(DetailView):
-    pass
+    template_name = 'imager_images/photo.html'
+    model = Photo
 
 
 class AlbumView(DetailView):

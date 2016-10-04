@@ -7,9 +7,9 @@ from imager_images.views import PhotoView, UploadPhotoView, AlbumView, AlbumDeta
 app = 'imager_images'
 urlpatterns = [
     url(
-        r'^photos/$',
+        r'^photos/(?P<pk>[A-Za-z0-9-]*)/$',
         PhotoView.as_view(),
-        name='photos_list'
+        name='photos_detail'
     ),
     url(
         r'^photos/new/$',
