@@ -1,4 +1,17 @@
+{% extends 'imagersite/base.html' %}
+
+{% load static %}
+
+{% block component_css %}
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
+{% endblock %}
+
+{% block body %}
+
 <h1>Photo View</h1>
 {{ object.upload.url }}
 <br>
 <img src="{{ object.upload.url }}">
+
+{% endblock %}
+

@@ -1,3 +1,13 @@
+{% extends 'imagersite/base.html' %}
+
+{% load static %}
+
+{% block component_css %}
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
+{% endblock %}
+
+{% block body %}
+
 <h1>{{ album.album_title }}</h1>
 Date Created: {{ album.date_created }}<br>
 Published Status: {{ album.publish_status }}<br>
@@ -8,3 +18,5 @@ Number of Pictures: {{ album.photos.count }}<br>
     <a href="{% url 'photos_detail' photo.pk %}"><img src="{{ photo.upload.url }}" height="150"></a>
     
  {% endfor %}
+
+{% endblock %}

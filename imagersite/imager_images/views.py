@@ -13,16 +13,6 @@ def library_view(request):
     return HttpResponse('Fuck You! I\'m a web page!')
 
 
-def image_view(request, uuid=None):
-    my_photo = Photo.objects.filter(photo_id=uuid)
-    context = Context({
-        "photo": my_photo,
-        "file_name": my_photo.upload,
-        "file": my_photo.upload
-    })
-    return render(request, 'photo.html', context)
-
-
 class PhotoView(DetailView):
     template_name = 'imager_images/photo.html'
     model = Photo
