@@ -17,5 +17,8 @@ class PhotoUploadForm(ModelForm):
         fields = ['upload', 'caption', 'camera', 'albums', 'published_status']
         widgets = {
             'published_status': forms.Select(attrs={'class': 'mdb-select'}),
-            'albums': forms.Select(attrs={'class': 'mdb-select'})
+            'albums': forms.SelectMultiple(attrs={
+                'class': 'mdb-select',})
         }
+
+
