@@ -14,12 +14,16 @@
     <header>
       {% block nav %}
       {% endblock %}
-      
+
       {% block splash %}
       {% endblock %}
     </header>
     <body>
       {% block body %}
+      {% endblock %}
+      {% block photo %}
+      {% endblock %}
+      {% block album %}
       {% endblock %}
     </body>
 
@@ -27,5 +31,8 @@
 <script src="{% static '/js/jquery-2.2.3.min.js' %}"></script>
 <script src="{% static '/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/js/mdb.min.js' %}"></script>
+
+{% block js %}
+{% endblock %}
 
 </html>

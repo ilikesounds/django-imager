@@ -1,5 +1,7 @@
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView
+from django.urls import reverse
+from imager_images.forms import PhotoUploadForm
 from .models import Photo, Album
 # Create your views here.
 
@@ -20,19 +22,18 @@ class AlbumDetailView(DetailView):
 
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/create_photo.html'
+    form_class = PhotoUploadForm
     model = Photo
-    fields = [
-        'upload',
-        'user',
-        'published_status',
-        'camera',
-        'caption',
-        'albums'
-        ]
 
     def get_success_url(self):
-        url = self.object.upload.url
+        """Set redirection upon successful upload."""
+        url = reverse('library')
         return url
+
+    def form_valid(self, form):
+        """Modify form validation to apply a user to an instance."""
+        form.instance.user = self.request.user
+        return super(UploadPhotoView, self).form_valid(form)
 
 
 class LibraryView(TemplateView):
@@ -46,9 +47,8 @@ class LibraryView(TemplateView):
         """
         Override of the builtin get_context_data function.
         """
-
         context = super(LibraryView, self).get_context_data(**kwargs)
         context['full_name'] = self.request.user.get_full_name()
-        context['photos'] = self.request.user.photo.all
-        context['albums'] = self.request.user.album.all
+        context['photos'] = self.request.user.photo.all()
+        context['albums'] = self.request.user.album.all()
         return context

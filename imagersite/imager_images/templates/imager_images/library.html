@@ -1,15 +1,15 @@
 {% extends 'imagersite/base.html' %}
-
+{% load static %}
 {% block photo %}
 <div class="row">
     <div class="col-md-12">
         <div id="mdb-lightbox-ui"></div>
         <div class="mdb-lightbox">
-          {% if photo %}
-            {% for i in photo %}
+          {% if photos %}
+            {% for photo in photos %}
               <figure class="col-md-4">
-                  <a href="http://mdbootstrap.com/images/regular/nature/img%20(41).jpg" data-size="1600x1067">
-                      <img src="http://mdbootstrap.com/images/docs/lightbox-thumbs/img%20(41).jpg" class="img-fluid">
+                  <a href="{% url 'photos_detail' photo.pk %}" data-size="1600x1067">
+                      <img src="{{ photo.upload.url }}" class="img-fluid">
                   </a>
               </figure>
             {% endfor %}
@@ -40,4 +40,13 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+// MDB Lightbox Init
+$(function () {
+    $("#mdb-lightbox-ui").load("{% static '/mdb-addons/mdb-lightbox-ui.html' %}");
+});
+</script>
 {% endblock %}
