@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
 from imager_images.views import (PhotoView,
                                  UploadPhotoView,
-                                 AlbumView,
+                                 NewAlbumView,
                                  AlbumDetailView,
                                  LibraryView
                                  )
@@ -20,9 +20,9 @@ urlpatterns = [
         name='photos_detail'
         ),
     url(
-        r'^albums/$',
-        AlbumView.as_view(),
-        name='albums_list'
+        r'^albums/new/$',
+        login_required(NewAlbumView.as_view()),
+        name='new_album'
         ),
     url(
         r'^albums/(?P<pk>[A-Za-z0-9-]*)/$',

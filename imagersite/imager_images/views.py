@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse
-from imager_images.forms import PhotoUploadForm
+from imager_images.forms import PhotoUploadForm, NewAlbumForm
 from .models import Photo, Album
 # Create your views here.
 
@@ -11,13 +11,16 @@ class PhotoView(DetailView):
     model = Photo
 
 
-class AlbumView(DetailView):
-    pass
-
-
 class AlbumDetailView(DetailView):
     template_name = 'imager_images/album.html'
     model = Album
+
+
+class NewAlbumView(CreateView):
+    template_name = 'imager_images/album_new.html'
+    form_class = NewAlbumForm
+    model = Album
+
 
 
 class UploadPhotoView(CreateView):
