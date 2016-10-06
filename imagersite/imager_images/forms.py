@@ -29,7 +29,7 @@ class NewAlbumForm(ModelForm):
 
     class Meta:
         model = Album
-        fields = ['album_title', 'album_description', 'published_status', 'cover_photo']
+        fields = ['album_title', 'album_description', 'published_status']
         widgets = {
             'published_status': forms.Select(attrs={'class': 'mdb-select'}),
         }
