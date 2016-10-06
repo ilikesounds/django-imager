@@ -12,6 +12,18 @@
 {{ object.upload.url }}
 <br>
 <img src="{{ object.upload.url }}">
+<p>
+    Image Created: {{ object.date_created }}<br>
+    Image Uploaded: {{ object.date_uploaded }}<br>
+    Published Status: {{ object.published_status }}<br>
+    Camera: {{ object.camera }}<br>
+    This picture is in albums:<br>
+    {% for album in albums %}
+        <a href = "{% url 'album_detail' album.pk %}">
+        <img src = "{{ album.cover_photo.upload.url }}" height = '100'><br>
+         {{ album.album_title }}<a><br>
+    {% endfor %}
+
 
 {% endblock %}
 
