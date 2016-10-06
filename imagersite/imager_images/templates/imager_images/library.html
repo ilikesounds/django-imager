@@ -1,52 +1,70 @@
 {% extends 'imagersite/base.html' %}
 {% load static %}
-{% block photo %}
-<div class="row">
-    <div class="col-md-12">
-        <div id="mdb-lightbox-ui"></div>
-        <div class="mdb-lightbox">
-          {% if photos %}
-            {% for photo in photos %}
-              <figure class="col-md-4">
-                  <a href="{% url 'photos_detail' photo.pk %}" data-size="1600x1067">
-                      <img src="{{ photo.upload.url }}" class="img-fluid">
-                  </a>
-              </figure>
-            {% endfor %}
-          {% else %}
-            <h1>No photos to display</h1>
-          {% endif %}
-        </div>
+
+{% block nav %}
+<div class="container">
+<nav class="navbar navbar-dark special-color-dark">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx22"><i class="fa fa-bars"></i> </button>
+    <div class="container">
+      <div class="collapse navbar-toggleable-xs" id="collapseEx22">
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item active">
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-dark" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+            <div class="dropdown-menu dropdown-dark" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+              {% if user %}
+              <a class="dropdown-item waves-effect waves-dark" href="/profile">Profile</a>
+              <a class="dropdown-item waves-effect waves-dark" href="{% url 'library_view' %}">Library</a>
+              <a class="dropdown-item waves-effect waves-dark" href="/logout">Logout</a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
+</nav>
+</div>
+{% endblock %}
+
+{% block photo %}
+<div class="container">
+  <h1>{{ full_name }} Photos</h1>
+  <div class="row">
+    <div class="col-md-12">
+      {% if photos %}
+        {% for photo in photos %}
+          <figure class="col-md-4">
+            <a href="{% url 'photos_detail' photo.pk %}">
+              <img src="{{ photo.upload.url }}" class="img-fluid">
+            </a>
+          </figure>
+        {% endfor %}
+      {% else %}
+      <h1>No photos to display</h1>
+      {% endif %}
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block album %}
-<div class="row">
+<div class="container">
+    <h1>{{ full_name }} Albums</h1>
+  <div class="row">
     <div class="col-md-12">
-        <div id="mdb-lightbox-ui"></div>
-        <div class="mdb-lightbox">
-          {% if album %}
-            {% for i in album %}
-              <figure class="col-md-4">
-                  <a href="http://mdbootstrap.com/images/regular/nature/img%20(41).jpg" data-size="1600x1067">
-                      <img src="http://mdbootstrap.com/images/docs/lightbox-thumbs/img%20(41).jpg" class="img-fluid">
-                  </a>
-              </figure>
-            {% endfor %}
-          {% else %}
-            <h1>No photos to display</h1>
-          {% endif %}
-        </div>
+      {% if albums %}
+        {% for album in albums %}
+          <figure class="col-md-4">
+            <a href="{% url 'album_detail' album.pk %}">
+              <img src="{{ album.cover_photo.upload.url }}" class="img-fluid">
+            </a>
+          </figure>
+        {% endfor %}
+        {% else %}
+          <h1>No albums to display</h1>
+      {% endif %}
     </div>
+  </div>
 </div>
-{% endblock %}
-
-{% block js %}
-<script>
-// MDB Lightbox Init
-$(function () {
-    $("#mdb-lightbox-ui").load("{% static '/mdb-addons/mdb-lightbox-ui.html' %}");
-});
-</script>
 {% endblock %}

@@ -15,7 +15,6 @@ class ProfileView(TemplateView):
         This function overrides the included generic TemplateView function and
         provides a custom context
         """
-        import pdb; pdb.set_trace()
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['profile'] = self.request.user
         context['full_name'] = self.request.user.get_full_name()

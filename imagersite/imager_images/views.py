@@ -25,14 +25,9 @@ class UploadPhotoView(CreateView):
     form_class = PhotoUploadForm
     model = Photo
 
-    def get_form(self):
-        form = super(UploadPhotoView, self).get_form()
-        import pdb; pdb.set_trace()
-        return form
-
     def get_success_url(self):
         """Set redirection upon successful upload."""
-        url = reverse('library')
+        url = reverse('library_view')
         return url
 
     def form_valid(self, form):
