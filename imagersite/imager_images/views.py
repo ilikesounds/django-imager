@@ -10,16 +10,6 @@ class PhotoView(DetailView):
     template_name = 'imager_images/photo.html'
     model = Photo
 
-    def get_context_data(self, **kwargs):
-        """
-        Override of the builtin get_context_data function.
-        """
-        context = super(PhotoView, self).get_context_data(**kwargs)
-        import pdb; pdb.set_trace()
-        context['albums'] = self.request.user.album.all()
-        return context
-
-
 
 class AlbumView(DetailView):
     pass
