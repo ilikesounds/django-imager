@@ -1,0 +1,56 @@
+{% extends 'imagersite/base.html' %}
+
+{% load static %}
+
+{% block component_css %}
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
+{% endblock %}
+
+{% block nav %}
+<div class="container">
+<nav class="navbar navbar-dark special-color-dark">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx22"><i class="fa fa-bars"></i> </button>
+    <div class="container">
+      <div class="collapse navbar-toggleable-xs" id="collapseEx22">
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item active">
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-dark" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+            <div class="dropdown-menu dropdown-dark" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+              {% if user %}
+              <a class="dropdown-item waves-effect waves-dark" href="/profile">Profile</a>
+              <a class="dropdown-item waves-effect waves-dark" href="{% url 'library_view' %}">Library</a>
+              <a class="dropdown-item waves-effect waves-dark" href="/logout">Logout</a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1>Photo View</h1>
+{{ object.upload.url }}
+<br>
+<div class="container">
+  <img class="img-fluid" src="{{ object.upload.url }}">
+</div>
+<p>
+    Image Created: {{ object.date_created }}<br>
+    Image Uploaded: {{ object.date_uploaded }}<br>
+    Published Status: {{ object.published_status }}<br>
+    Camera: {{ object.camera }}<br>
+    This picture is in albums:<br>
+    {% for album in object.albums.all %}
+        <a href = "{% url 'album_detail' album.pk %}">
+        <img src = "{{ album.cover_photo.upload.url }}" height = '100'><br>
+         {{ album.album_title }}<a><br>
+    {% endfor %}
+</div>
+
+{% endblock %}

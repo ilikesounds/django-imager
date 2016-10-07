@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8ip$_1^%&tct&+$&ochv^_6k7w)1a%6-s2*d5ql#$=r!a-i!ob'
+
+SECRET_KEY = os.environ['DJANGO_IMAGER_SK']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'imager_profile.apps.ImagerProfileConfig',
-    'imager_images.apps.ImagerImagesConfig'
+    'imager_images.apps.ImagerImagesConfig',
+    'imager_api.apps.ImagerApiConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'imagersite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +71,6 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = 'imagersite.wsgi.application'
 
 
@@ -108,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -121,8 +123,33 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'imagersite', 'static')]
 
 # Media file handling
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# HMAC settings
+
+ACCOUNT_ACTIVATION_DAYS = 1
+
+# Email Backend
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Login redirect
+
+LOGIN_REDIRECT_URL = '/profile/'
+
+# Logout redirect
+
+LOGOUT_REDIRECT_URL = '/'
+
+TEMPLATE_DEBUG = True
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}

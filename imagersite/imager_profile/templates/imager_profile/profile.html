@@ -1,0 +1,56 @@
+{% extends 'imagersite/base.html' %}
+
+{% load static %}
+
+{% block component_css %}
+<!-- <link rel="stylesheet" href="{% static 'css/splash_page.css' %}"> -->
+{% endblock %}
+
+{% block nav %}
+<div class="container">
+<nav class="navbar navbar-dark special-color-dark">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx22"><i class="fa fa-bars"></i> </button>
+    <div class="container">
+      <div class="collapse navbar-toggleable-xs" id="collapseEx22">
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item active">
+          </li>
+          {% if profile.username %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-dark" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+            <div class="dropdown-menu dropdown-dark" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+              <a class="dropdown-item waves-effect waves-dark" href="/profile">Profile</a>
+              <a class="dropdown-item waves-effect waves-dark" href="{% url 'library_view' %}">Library</a>
+              <a class="dropdown-item waves-effect waves-dark" href="/logout">Logout</a>
+            </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+</nav>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  <section class="m-b-4">
+    <div class="author-box">
+      <div class="row">
+        <h3 class="h3-responsive text-xs-center">User Profile</h3>
+        <hr>
+        <div class="col-xs-12 col-sm-2">
+          <img src="http://2.gravatar.com/avatar/e9de252843e9ff541060127dac7126ed?s=150&d=mm&r=g" class="img-fluid img-circle z-depth-2">
+        </div>
+        <div class=" col-xs-12 col-sm-10">
+          <p><strong>User Name: </strong>{{ full_name }}</p>
+          <p><strong>Email: </strong>{{ profile.email }}</p>
+          <p><strong>Albums: </strong>{{ album_count }}</p>
+          <p><strong>Photos: </strong>{{  photo_count }}</p>
+          <p><strong class="hidden-md-down">Bio: </strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla quia quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae praesentium beatae quas libero, ess facere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
