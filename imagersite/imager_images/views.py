@@ -24,6 +24,15 @@ class NewAlbumView(CreateView):
     form_class = NewAlbumForm
     model = Album
 
+    def form_valid(self, form):
+        """Modify form validation to apply a user to an instance."""
+        form.instance.user = self.request.user
+        return super(NewAlbumView, self).form_valid(form)
+
+    def get_success_url(self):
+        """Set redirection upon successful upload."""
+        url = reverse('library_view')
+        return url
 
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/create_photo.html'

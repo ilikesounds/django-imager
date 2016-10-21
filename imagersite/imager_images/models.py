@@ -108,9 +108,8 @@ class Album(models.Model):
         related_name='album'
         )
 
-    date_created = models.DateTimeField(_('Date Created'))
+    date_created = models.DateTimeField(_('Date Created'), auto_now_add=True)
     date_modified = models.DateTimeField(_('Date Modified'), auto_now=True)
-    date_uploaded = models.DateTimeField(_('Date Uploaded'), auto_now_add=True)
 
     album_title = models.CharField(_('Title'), max_length=64, blank=True)
     album_description = models.TextField(_('Description'), blank=True)
