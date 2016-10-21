@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
 from imager_images.views import (PhotoView,
+                                 PhotoEditView,
                                  UploadPhotoView,
-                                 NewAlbumView,
                                  AlbumDetailView,
-                                 LibraryView
+                                 LibraryView,
                                  )
 
 app = 'imager_images'
@@ -15,14 +15,14 @@ urlpatterns = [
         name='upload_photo'
         ),
     url(
+        r'^photos/(?P<pk>[A-Za-z0-9-]*)/edit',
+        PhotoEditView.as_view(),
+        name='photo_edit_view'
+        ),
+    url(
         r'^photos/(?P<pk>[A-Za-z0-9-]*)/$',
         PhotoView.as_view(),
         name='photos_detail'
-        ),
-    url(
-        r'^albums/new/$',
-        login_required(NewAlbumView.as_view()),
-        name='new_album'
         ),
     url(
         r'^albums/(?P<pk>[A-Za-z0-9-]*)/$',

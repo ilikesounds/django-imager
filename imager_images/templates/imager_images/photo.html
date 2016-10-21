@@ -39,10 +39,14 @@
 <br>
 <div class="container">
   <img class="img-fluid" src="{{ object.upload.url }}">
+  <br>
+  <h4>Caption: {{ object.caption }}</h4>
+  <button type="button" class="btn btn-unique"><a href="edit/" style="color:white">Edit Photo</a></button>
 </div>
 <p>
     Image Created: {{ object.date_created }}<br>
     Image Uploaded: {{ object.date_uploaded }}<br>
+    Image Modified: {{ object.date_modified }}<br>
     Published Status: {{ object.published_status }}<br>
     Camera: {{ object.camera }}<br>
     This picture is in albums:<br>
