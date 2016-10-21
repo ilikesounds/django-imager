@@ -1,9 +1,50 @@
 {% extends 'imagersite/base.html' %}
 
+{% block nav %}
+<div class="container">
+<nav class="navbar navbar-dark special-color-dark">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx22"><i class="fa fa-bars"></i> </button>
+    <div class="container">
+      <div class="collapse navbar-toggleable-xs" id="collapseEx22">
+        <ul class="nav navbar-nav pull-right">
+          <li class="nav-item active">
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle waves-effect waves-dark" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Profile</a>
+            <div class="dropdown-menu dropdown-dark" aria-labelledby="dropdownMenu1" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+              {% if user %}
+              <a class="dropdown-item waves-effect waves-dark" href="/profile">Profile</a>
+              <a class="dropdown-item waves-effect waves-dark" href="{% url 'library_view' %}">Library</a>
+              <a class="dropdown-item waves-effect waves-dark" href="/logout">Logout</a>
+              {% endif %}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+</div>
+{% endblock %}
+
 {% block body %}
-<form action="{% url 'photo_edit' %}" method="post">
-  {% csrf token %}
-  {{ form }}
-  <input type="submit" value="Submit">
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% if form.errors %}
+    {{ form.errors }}
+  {% endif %}
+  <div class="container">
+    <img src="{{ object.upload.url }}" class="img-fluid m-x-auto d-block" alt="" />
+    {{ form }}
+    <input type="submit" value="Submit">
+  </div>
 </form>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+  // Material Select Initialization
+ $(document).ready(function() {
+    $('.mdb-select').material_select();
+  });
+</script>
 {% endblock %}
