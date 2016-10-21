@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['DJANGO_IMAGER_SK']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.161.83.67']
 
 
 # Application definition
