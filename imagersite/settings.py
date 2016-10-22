@@ -24,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['DJANGO_IMAGER_SK']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False) == 'True'
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['35.161.43.248']
 
@@ -61,7 +62,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
-        'TEMPLATE_DEBUG': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
