@@ -35,24 +35,26 @@ Date Created: {{ album.date_created }}<br>
 Published Status: {{ album.publish_status }}<br>
 Number of Pictures: {{ album.photos.count }}<br>
 
-{% for photo in photos.all %}
+{% for photo in photos %}
 
     <a href="{% url 'photos_detail' photo.pk %}"><img src="{{ photo.upload.url }}" height="150"></a>
 
  {% endfor %}
 </div>
+<div class="container">
 <div class="pagination">
     <span class="step-links">
-      {% if album.has_previous %}
-        <a href="?page={{ album.previous_page_number }}">previous</a>
+      {% if photos.has_previous %}
+        <a href="?page={{ photos.previous_page_number }}">previous</a>
       {% endif %}
       <span class="current">
-            Page {{ album.number }} of {{ album.paginator.num_pages }}.
+            Page {{ photos.number }} of {{ photos.paginator.num_pages }}.
         </span>
 
-        {% if album.has_next %}
-            <a href="?page={{ album.next_page_number }}">next</a>
+        {% if photos.has_next %}
+            <a href="?page={{ photos.next_page_number }}">next</a>
         {% endif %}
     </span>
   </div>
+</div>
 {% endblock %}
