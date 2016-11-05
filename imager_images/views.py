@@ -6,6 +6,7 @@ from imager_images.forms import (PhotoUploadForm,
                                  NewAlbumForm
                                  )
 from .models import Photo, Album
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
@@ -17,6 +18,24 @@ class PhotoView(DetailView):
 class AlbumDetailView(DetailView):
     template_name = 'imager_images/album.html'
     model = Album
+
+    def get_context_data(self, **kwargs):
+        """
+        Override of the builtin get_context_data function.
+        """
+        context = super(DetailView, self).get_context_data(**kwargs)
+        photo_queryset = self.object.photos.all()
+        photo_paginator = Paginator(photo_queryset, 4)
+        page = self.request.GET.get('page')
+        try:
+            photos = photo_paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            photos = photo_paginator.page(1)
+        except EmptyPage:
+            photos = photo_paginator.page(photo_paginator.num_pages)
+        context['photos'] = photos
+        return context
 
 
 class NewAlbumView(CreateView):
@@ -33,6 +52,7 @@ class NewAlbumView(CreateView):
         """Set redirection upon successful upload."""
         url = reverse('library_view')
         return url
+
 
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/create_photo.html'

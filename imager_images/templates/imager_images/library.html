@@ -39,6 +39,19 @@
               <img src="{{ photo.upload.url }}" class="img-fluid">
             </a>
           </figure>
+        <div class="pagination">
+          <span class="step-links">
+            {% if albums.has_previous %}
+              <a href="?page={{ photos.previous_page_number }}">previous</a>
+            {% endif %}
+          <span class="current">
+              Page {{ photos.number }} of {{ photos.paginator.num_pages }}.
+          </span>
+        {% if photos.has_next %}
+            <a href="?page={{ photos.next_page_number }}">next</a>
+        {% endif %}
+        </span>
+      </div>
         {% endfor %}
       {% else %}
       <h1>No photos to display</h1>
@@ -60,6 +73,20 @@
               <img src="{{ album.cover_photo.upload.url }}" class="img-fluid">
             </a>
           </figure>
+          <div class="pagination">
+              <span class="step-links">
+                {% if album.has_previous %}
+                  <a href="?page={{ album.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="current">
+                      Page {{ album.number }} of {{ album.paginator.num_pages }}.
+                  </span>
+
+                  {% if album.has_next %}
+                      <a href="?page={{ album.next_page_number }}">next</a>
+                  {% endif %}
+              </span>
+            </div>
         {% endfor %}
         {% else %}
           <h1>No albums to display</h1>
